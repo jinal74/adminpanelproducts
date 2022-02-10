@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.theme {
+  background-color: #002b49 !important;
+}
+
+.MuiDrawer-paper {
+  background-color: #002b49 !important;
+}
