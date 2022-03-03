@@ -69,8 +69,8 @@ function Products({LoadData, handleClose, open, update}) {
         .required("Price is must required"),
       rate: yup.number()
         .required("Rating is must required")
-        .min(0, 'Invalid')
-        .max(5, "Invalid")
+        .min(0, 'Invalid Rate')
+        .max(5, "Invalid Rate")
     }
 
     let schema = yup.object().shape(productSchema)
