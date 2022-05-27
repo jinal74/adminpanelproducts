@@ -23,8 +23,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
 // import { makeStyles } from '@material-ui/core/styles';
-
-
+import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 240;
 
@@ -97,6 +96,11 @@ export default function Layout({ children }) {
 
     const navItem = [
         {
+            path: '/',
+            label: "Dashboard",
+            icon: <DashboardIcon />
+        },
+        {
             path: '/table',
             label: "Products",
             icon: <ShoppingBagIcon />
@@ -104,7 +108,7 @@ export default function Layout({ children }) {
         {
             path: '/categories',
             label: "Categories",
-            icon: <DashboardIcon />
+            icon: <CategoryIcon />
         }
     ]
 
