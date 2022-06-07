@@ -73,7 +73,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function DataTable (props) {
+function DataTable(props) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -97,13 +97,13 @@ function DataTable (props) {
     () => {
       LoadData()
     },
-  [])
+    [])
 
   const LoadData = () => {
     let localData = JSON.parse(localStorage.getItem("products"))
-  
+
     let localMData;
-  
+
     if (localData === null) {
       localMData = rows
     } else {
@@ -167,7 +167,7 @@ function DataTable (props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (id) => selected && selected.indexOf(id) !== -1;
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
@@ -175,15 +175,15 @@ function DataTable (props) {
   return (
     <>
       <Typography variant='h5'>
-          List of Products
-        </Typography>
-        <Button variant="contained" className='theme mt-3 mb-5' onClick={handleClickOpen}>
-          Add Products
-        </Button>
+        List of Products
+      </Typography>
+      <Button variant="contained" className='theme mt-3 mb-5' onClick={handleClickOpen}>
+        Add Products
+      </Button>
       <Products LoadData={LoadData} handleClose={handleClose} open={open} update={update} />
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          <TableToolbar numSelected={selected.length} selected={selected} LoadData={LoadData} handleClose={handleClose} />
+          <TableToolbar numSelected={selected && selected.length} selected={selected} LoadData={LoadData} handleClose={handleClose} />
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -191,12 +191,12 @@ function DataTable (props) {
               size={dense ? 'small' : 'medium'}
             >
               <DataTableHead
-                numSelected={selected.length}
+                numSelected={selected && selected.length}
                 order={order}
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={data.length}
+                rowCount={data && data.length}
               />
               <TableBody>
                 {
