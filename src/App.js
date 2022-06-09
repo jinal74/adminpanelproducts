@@ -1,3 +1,4 @@
+import './App.css';
 import Layout from './components/Layout/Layout';
 import DashBoard from './containers/DashBoard/DashBoard';
 import Table from './containers/Products/Table';

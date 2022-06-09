@@ -53,7 +53,7 @@ function Products({ LoadData, handleClose, open, update }) {
     dispatch(addProducts(values))
     // let localData = JSON.parse(localStorage.getItem("products"))
 
-    // let data = {"id":Math.floor((Math.random() * 1000) + 1), ...values}
+    // let data = { "id": Math.floor((Math.random() * 1000) + 1), ...values }
     // if (localData === null) {
     //   localStorage.setItem("products", JSON.stringify([data]))
     // } else {

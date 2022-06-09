@@ -18,6 +18,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DataTableHead from './TableHead';
 import Products from './Products';
 import { Button, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../../redux/action/product.action';
 
 function createData(id, title, subtitle, price, rate) {
   return {
@@ -84,6 +86,10 @@ function DataTable(props) {
   const [open, setOpen] = React.useState(false);
   const [update, setUpdate] = React.useState();
 
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.products)
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -95,9 +101,10 @@ function DataTable(props) {
 
   React.useEffect(
     () => {
-      LoadData()
+      dispatch(fetchProducts())
+      setData(products.products)
     },
-    [])
+    [products.products])
 
   const LoadData = () => {
     let localData = JSON.parse(localStorage.getItem("products"))
@@ -231,12 +238,12 @@ function DataTable(props) {
                             scope="row"
                             padding="none"
                           >
-                            {row.id}
+                            {index + 1}
                           </TableCell>
                           <TableCell align="left">{row.title}</TableCell>
-                          <TableCell align="left">{row.subtitle}</TableCell>
+                          <TableCell align="left">{row.sub_title}</TableCell>
                           <TableCell align="right">{row.price}</TableCell>
-                          <TableCell align="right">{row.rate}</TableCell>
+                          <TableCell align="right">{row.rating}</TableCell>
                           <TableCell align='right'>
                             <IconButton onClick={() => handleEdit(row.id)}>
                               <EditIcon />
