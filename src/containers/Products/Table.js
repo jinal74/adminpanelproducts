@@ -106,6 +106,7 @@ function DataTable(props) {
     },
     [products.products])
 
+
   const LoadData = () => {
     let localData = JSON.parse(localStorage.getItem("products"))
 

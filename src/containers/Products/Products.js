@@ -62,7 +62,7 @@ function Products({ LoadData, handleClose, open, update }) {
     // }
 
     // LoadData()
-    // handleClose()
+    handleClose()
   }
 
   const productSchema = {

@@ -22,6 +22,13 @@ const productsReducer = (state = initialValues, action) => {
                 errorMsg: '',
                 isLoading: false
             }
+        case ActionTypes.DELETE_PRODUCTS:
+            return {
+                ...state,
+                products: state.products.filter((m) => m.id !== action.payload),
+                errorMsg: '',
+                isLoading: false
+            }
         default:
             return state;
     }

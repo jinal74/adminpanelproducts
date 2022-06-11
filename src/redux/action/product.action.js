@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import * as ActionTypes from '../ActionTypes';
 
@@ -41,4 +41,11 @@ export const addProducts = (data) => async (dispatch) => {
     } catch (e) {
         console.error("Error adding document: ", e);
     }
+}
+
+export const deleteProducts = (id) => (dispatch) => {
+    id && id.map(async (l) => {
+        await deleteDoc(doc(db, "product", l));
+        dispatch({ type: ActionTypes.DELETE_PRODUCTS, payload: l })
+    })
 }

@@ -3,6 +3,8 @@ import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteProducts } from '../../redux/action/product.action';
 
 TableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
@@ -13,21 +15,23 @@ function TableToolbar({ numSelected, selected, LoadData, handleClose }) {
     const [open, setOpen] = React.useState(false);
     const [id, setId] = React.useState();
 
+    const dispatch = useDispatch();
+
     React.useEffect(
         () => {
             setId(selected)
         },
-    [selected])
+        [selected])
 
     const handleDelete = (id) => {
-        console.log(id)
-        let localData = JSON.parse(localStorage.getItem("products"))
+        dispatch(deleteProducts(id))
+        // let localData = JSON.parse(localStorage.getItem("products"))
 
-        let filterData = localData.filter((l, i) => !id.includes(l.id))
+        // let filterData = localData.filter((l, i) => !id.includes(l.id))
 
-        localStorage.setItem("products", JSON.stringify(filterData))
+        // localStorage.setItem("products", JSON.stringify(filterData))
 
-        LoadData()
+        // LoadData()
         handleCloseDelete()
     }
 
