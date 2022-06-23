@@ -21,13 +21,17 @@ import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../../redux/action/product.action';
 
-function createData(id, title, subtitle, price, rate) {
+function createData(id, title, sub_title, description, image_url, quantity, category, price, rating) {
   return {
     id,
     title,
-    subtitle,
+    sub_title,
+    description,
+    image_url,
+    quantity,
+    category,
     price,
-    rate,
+    rating,
   };
 }
 
@@ -121,8 +125,7 @@ function DataTable(props) {
   }
 
   const handleEdit = (id) => {
-    let localData = JSON.parse(localStorage.getItem("products"))
-    let filterData = localData.filter((l) => l.id === id)
+    let filterData = data.filter((l) => l.id === id)
     setOpen(true)
     setUpdate(filterData[0])
   }
@@ -241,8 +244,14 @@ function DataTable(props) {
                           >
                             {index + 1}
                           </TableCell>
+                          <TableCell align="left">
+                            <img src={row.image_url} alt="..." width="100px" />
+                          </TableCell>
                           <TableCell align="left">{row.title}</TableCell>
                           <TableCell align="left">{row.sub_title}</TableCell>
+                          <TableCell align="left">{row.description}</TableCell>
+                          <TableCell align="left">{row.quantity}</TableCell>
+                          <TableCell align="left">{row.category}</TableCell>
                           <TableCell align="right">{row.price}</TableCell>
                           <TableCell align="right">{row.rating}</TableCell>
                           <TableCell align='right'>

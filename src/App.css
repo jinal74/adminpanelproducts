@@ -45,3 +45,40 @@
 .MuiDrawer-paper {
   background-color: #051922 !important;
 }
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.input-group>.form-control,
+.input-group>.form-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+}
+
+.cust-line-height {
+  line-height: 39px;
+}
+
+.input-custom-class {
+  height: 50px;
+  background-color: #f7f7f7;
+  border: 1px solid #f7f7f7;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #5e5e6c;
+  transition: all .3s;
+  margin-bottom: 15px;
+}
+
+.form-control:disabled,
+.form-control:read-only {
+  background-color: #f7f7f7;
+  opacity: 1;
+}

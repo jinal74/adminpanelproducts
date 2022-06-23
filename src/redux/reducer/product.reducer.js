@@ -2,6 +2,7 @@ import * as ActionTypes from '../ActionTypes';
 
 const initialValues = {
     products: [],
+    product_img: [],
     errorMsg: '',
     isLoading: false
 }
@@ -26,6 +27,19 @@ const productsReducer = (state = initialValues, action) => {
             return {
                 ...state,
                 products: state.products.filter((m) => m.id !== action.payload),
+                errorMsg: '',
+                isLoading: false
+            }
+        case ActionTypes.UPDATE_PRODUCTS:
+            return {
+                ...state,
+                products: state.products.map((m) => {
+                    if (m.id !== action.payload.id) {
+                        return action.payload
+                    } else {
+                        return m
+                    }
+                }),
                 errorMsg: '',
                 isLoading: false
             }

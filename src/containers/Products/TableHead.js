@@ -14,36 +14,60 @@ TableHead.propTypes = {
 
 const headCells = [
     {
-      id: 'id',
-      numeric: false,
-      disablePadding: false,
-      label: 'SR.NO',
+        id: 'id',
+        numeric: false,
+        disablePadding: false,
+        label: 'SR.NO',
     },
     {
-      id: 'title',
-      numeric: false,
-      disablePadding: true,
-      label: 'TITLE',
+        id: 'image_url',
+        numeric: false,
+        disablePadding: true,
+        label: 'IMAGE',
     },
     {
-      id: 'subtitle',
-      numeric: false,
-      disablePadding: false,
-      label: 'SUBTITLE',
+        id: 'title',
+        numeric: false,
+        disablePadding: true,
+        label: 'TITLE',
     },
     {
-      id: 'price',
-      numeric: true,
-      disablePadding: false,
-      label: 'PRICE',
+        id: 'subtitle',
+        numeric: false,
+        disablePadding: false,
+        label: 'SUBTITLE',
     },
     {
-      id: 'rate',
-      numeric: true,
-      disablePadding: false,
-      label: 'RATING',
+        id: 'description',
+        numeric: false,
+        disablePadding: false,
+        label: 'DESCRIPTION',
+    },
+    {
+        id: 'quantity',
+        numeric: false,
+        disablePadding: false,
+        label: 'QUANTITY',
+    },
+    {
+        id: 'category',
+        numeric: false,
+        disablePadding: false,
+        label: 'CATEGORY',
+    },
+    {
+        id: 'price',
+        numeric: true,
+        disablePadding: false,
+        label: 'PRICE',
+    },
+    {
+        id: 'rate',
+        numeric: true,
+        disablePadding: false,
+        label: 'RATING',
     }
-  ];
+];
 
 function DataTableHead(props) {
 

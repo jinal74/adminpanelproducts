@@ -10,11 +10,12 @@ import { Typography } from '@mui/material';
 import * as yup from "yup";
 import { Form, FormikProvider, useFormik } from 'formik';
 import DataTable from './Table'
-import { useDispatch } from 'react-redux';
-import { addProducts } from '../../redux/action/product.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductImage, addProducts, updateProducts } from '../../redux/action/product.action';
 
 function Products({ LoadData, handleClose, open, update }) {
   const [updateData, setUpdateData] = useState();
+  const [imageUrl, setimageUrl] = useState();
 
   const dispatch = useDispatch()
 
@@ -28,29 +29,44 @@ function Products({ LoadData, handleClose, open, update }) {
     let data = {
       "id": updateData ? updateData.id : '',
       "title": values.title,
-      "subtitle": values.subtitle,
+      "sub_title": values.sub_title,
+      "description": values.description,
+      "image_url": imageUrl,
+      "quantity": values.quantity,
+      "category": values.category,
       "price": parseInt(values.price),
-      "rate": parseInt(values.rate)
+      "rating": parseInt(values.rating)
     }
-    let localData = JSON.parse(localStorage.getItem("products"));
+    dispatch(updateProducts(data))
+    // let localData = JSON.parse(localStorage.getItem("products"));
 
-    const uData = localData.map((l) => {
-      if (l.id === updateData.id) {
-        return data
-      } else {
-        return l
-      }
-    })
+    // const uData = localData.map((l) => {
+    //   if (l.id === updateData.id) {
+    //     return data
+    //   } else {
+    //     return l
+    //   }
+    // })
 
-    localStorage.setItem("products", JSON.stringify(uData))
+    // localStorage.setItem("products", JSON.stringify(uData))
 
     handleClose();
-    LoadData();
+    // LoadData();
     setUpdateData();
   }
 
   const handleAdd = (values) => {
-    dispatch(addProducts(values))
+    let data = {
+      title: values.title,
+      sub_title: values.sub_title,
+      description: values.description,
+      image_url: imageUrl,
+      quantity: values.quantity,
+      category: values.category,
+      price: values.price,
+      rating: values.rating
+    }
+    dispatch(addProducts(data))
     // let localData = JSON.parse(localStorage.getItem("products"))
 
     // let data = { "id": Math.floor((Math.random() * 1000) + 1), ...values }
@@ -65,14 +81,26 @@ function Products({ LoadData, handleClose, open, update }) {
     handleClose()
   }
 
+  const handleAddImage = (e) => {
+    let imageUrl = URL.createObjectURL(e.target.files[0])
+    setimageUrl(imageUrl)
+    // dispatch(addProductImage(e.target.files[0]))
+  }
+
   const productSchema = {
     title: yup.string()
       .required("Title is must required"),
-    subtitle: yup.string()
-      .required("Subtitle is musat required"),
+    sub_title: yup.string()
+      .required("Subtitle is must required"),
+    description: yup.string()
+      .required("Description is must required"),
+    quantity: yup.string()
+      .required("Quantity is must required"),
+    category: yup.string()
+      .required("Category is must required"),
     price: yup.number()
       .required("Price is must required"),
-    rate: yup.number()
+    rating: yup.number()
       .required("Rating is must required")
       .min(0, 'Invalid Rate')
       .max(5, "Invalid Rate")
@@ -84,9 +112,12 @@ function Products({ LoadData, handleClose, open, update }) {
     enableReinitialize: true,
     initialValues: {
       title: updateData ? updateData.title : '',
-      subtitle: updateData ? updateData.subtitle : '',
+      sub_title: updateData ? updateData.sub_title : '',
+      description: updateData ? updateData.description : '',
+      quantity: updateData ? updateData.quantity : '',
+      category: updateData ? updateData.category : '',
       price: parseInt(updateData ? updateData.price : ''),
-      rate: parseInt(updateData ? updateData.rate : '')
+      rating: parseInt(updateData ? updateData.rating : '')
     },
     validationSchema: schema,
     onSubmit: values => {
@@ -130,19 +161,85 @@ function Products({ LoadData, handleClose, open, update }) {
               />
               <TextField
                 margin="dense"
-                id="subtitle"
+                id="sub_title"
                 label="SUBTITLE"
                 type="text"
-                name='subtitle'
+                name='sub_title'
                 fullWidth
                 variant="standard"
-                // {...getFieldProps("subtitle")}
-                defaultValue={updateData ? updateData.subtitle : ''}
+                // {...getFieldProps("sub_title")}
+                defaultValue={updateData ? updateData.sub_title : ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={Boolean(errors.subtitle && touched.subtitle)}
-                helperText={(errors.subtitle && touched.subtitle) && errors.subtitle}
+                error={Boolean(errors.sub_title && touched.sub_title)}
+                helperText={(errors.sub_title && touched.sub_title) && errors.sub_title}
               />
+              <TextField
+                margin="dense"
+                id="description"
+                label="DESCRIPTION"
+                type="text"
+                name='description'
+                fullWidth
+                variant="standard"
+                // {...getFieldProps("description")}
+                defaultValue={updateData ? updateData.description : ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={Boolean(errors.description && touched.description)}
+                helperText={(errors.description && touched.description) && errors.description}
+              />
+              <TextField
+                margin="dense"
+                id="quantity"
+                label="QUANTITY"
+                type="text"
+                name='quantity'
+                fullWidth
+                variant="standard"
+                // {...getFieldProps("quantity")}
+                defaultValue={updateData ? updateData.quantity : ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={Boolean(errors.quantity && touched.quantity)}
+                helperText={(errors.quantity && touched.quantity) && errors.quantity}
+              />
+              <div className='my-3'>
+                <select
+                  id='category'
+                  className='form-select py-2'
+                  defaultValue={updateData ? updateData.category : ''}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(errors.category && touched.category)}
+                  helperText={(errors.category && touched.category) && errors.category}
+                >
+                  <option values="">Select Category</option>
+                  <option values="berrires">Berries</option>
+                  <option values="melons">Melons</option>
+                  <option values="citrus">Citrus Fruits</option>
+                  <option values="drupes">Drupes</option>
+                  <option values="pomes">Pomes</option>
+                  <option values="tropical">Tropical Fruits</option>
+                </select>
+              </div>
+              <div className='d-flex'>
+                <div className='input-group w-75'>
+                  <input
+                    id="image"
+                    type="file"
+                    name='image'
+                    className="form-control input-custom-class cust-line-height"
+                    // defaultValue={updateData ? updateData.image : ''}
+                    onChange={(e) => handleAddImage(e)}
+                    error={Boolean(errors.image && touched.image)}
+                    helperText={(errors.image && touched.image) && errors.image}
+                  />
+                </div>
+                <div className='ms-3 border'>
+                  <img src={imageUrl} alt='123' className='img-fluid' width="100px" />
+                </div>
+              </div>
               <TextField
                 margin="dense"
                 id="price"
@@ -160,18 +257,18 @@ function Products({ LoadData, handleClose, open, update }) {
               />
               <TextField
                 margin="dense"
-                id="rate"
+                id="rating"
                 label="RATING"
                 type="number"
-                name='rate'
+                name='rating'
                 fullWidth
                 variant="standard"
-                // {...getFieldProps("rate")}
-                defaultValue={updateData ? updateData.rate : ''}
+                // {...getFieldProps("rating")}
+                defaultValue={updateData ? updateData.rating : ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={Boolean(errors.rate && touched.rate)}
-                helperText={(errors.rate && touched.rate) && errors.rate}
+                error={Boolean(errors.rating && touched.rating)}
+                helperText={(errors.rating && touched.rating) && errors.rating}
               />
             </DialogContent>
             <DialogActions>
